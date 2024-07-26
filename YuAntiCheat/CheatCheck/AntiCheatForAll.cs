@@ -158,16 +158,6 @@ internal class AntiCheatForAll
                         return true;
                     }
 
-                    RpcReportDeadBodyCheck(pc);
-                    if (ReportTimes.TryGetValue(pc.PlayerId, out int rtimes))
-                    {
-                        // 我们都知道，一局游戏最大只有15人，而就算内鬼为1人，那也不可能达到14次尸体报告（一个人）
-                        if (rtimes > 14)
-                        {
-                            Logger.Fatal($"玩家【{pc.GetClientId()}:{pc.GetRealName()}】报告尸体满14次，已驳回", "AntiCheatForAll");
-                            return true;
-                        }
-                    }
                     break;
                 
                 case RpcCalls.SetColor:
@@ -402,17 +392,6 @@ internal class AntiCheatForAll
             }
         }
         catch {}
-        return false;
-    }
-    public static Dictionary<byte, int> ReportTimes = [];
-
-    public static bool RpcReportDeadBodyCheck(PlayerControl player)
-    {
-        if (!ReportTimes.ContainsKey(player.PlayerId))
-        {
-            ReportTimes.Add(player.PlayerId, 0);
-        }
-        ReportTimes[player.PlayerId]++;
         return false;
     }
     

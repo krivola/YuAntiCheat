@@ -4,7 +4,6 @@ using TMPro;
 using System.IO;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using YuAntiCheat.Updater;
 
 namespace YuAntiCheat.UI;
 
@@ -149,17 +148,6 @@ public class MainMenuManagerPatch
             {
                 PlayButton.SetActive(true);
                 UpdateButton.SetActive(false);
-                if (!Input.GetKey(KeyCode.LeftShift))
-                {
-                    if (ModUpdater.CanUpdate)
-                    {
-                        ModUpdater.StartUpdate();
-                    }
-                    else
-                    {
-                        CustomPopup.Show(Translator.GetString("UpdateBySelfTitle"), Translator.GetString("UpdateBySelfText"), new() { (Translator.GetString(StringNames.Okay), null) });
-                    }
-                }
             }));
             UpdateButton.transform.transform.FindChild("FontPlacer").GetChild(0).gameObject.DestroyTranslator();
         }
